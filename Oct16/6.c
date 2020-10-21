@@ -46,7 +46,7 @@ void *sort(void *arg)
 
 int main()
 {
-	printf("Enter number of terms for Asc(1st half)/Desc(2nd half) sort to be generated (natural numbers): ");
+	printf("Enter number of terms for Asc/Desc sort to be generated (natural numbers): ");
 	scanf("%d", &n);
 	printf("\nEnter the %d elements: ", n);
 	for (int i = 0; i < n; i++)
