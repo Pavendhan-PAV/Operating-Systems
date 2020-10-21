@@ -9,7 +9,7 @@ int n;
 int key;
 int found = 0;
 int part = 0;
-int ind;
+int ind = -1;
 
 double wctime()
 {
