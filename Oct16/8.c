@@ -1,29 +1,12 @@
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
-#include <sys/time.h>
 
-#define ll unsigned long long int
-
-double wctime()
-{
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	return tv.tv_sec + 1E-6 * tv.tv_usec;
-}
-
+long long int fib = 1, fib1 = 1, fib2 = 1;
 int MAX_FIB_N = 93;
 int MIN_FIB_N = 1;
-
-int fib_num;
-ll *fib_seq;
-
-void *thread_runner(void *arg)
-{
-	for (int element = 2; element < fib_num; element++)
-		fib_seq[element] = fib_seq[element - 2] + fib_seq[element - 1];
-	pthread_exit(EXIT_SUCCESS);
-}
+void *gen1(void *param);
+void *gen2(void *param);
 
 int check_and_return(int arg_count, const char *arg_value)
 {
@@ -36,7 +19,7 @@ int check_and_return(int arg_count, const char *arg_value)
 
 	int int_value = atoi(arg_value);
 
-	if (int_value < MIN_FIB_N || int_value > MAX_FIB_N)
+	if (int_value < MIN_FIB_N || int_value >= MAX_FIB_N)
 	{
 		printf("Please use an integer between [%d] and [%d]. Aborting.\n", MIN_FIB_N, MAX_FIB_N);
 		exit(EXIT_FAILURE);
@@ -45,52 +28,69 @@ int check_and_return(int arg_count, const char *arg_value)
 	return int_value;
 }
 
-void print_int_array(ll *array, int array_size)
+int main(long long int argc, char const *argv[])
 {
-	for (ll i = 0; i < array_size; i++)
-		printf("%lld ", array[i]);
-	printf("\n");
-	return;
+	pthread_t tid1, tid2;
+	pthread_attr_t attr1, attr2;
+
+	long long int n = check_and_return(argc, argv[1]);
+
+	printf("\nFIBONACCI SERIES (%d) --- \n\n0 ", atoi(argv[1]));
+	printf("1 ");
+
+	for (long long int i = 2; i <= n; i++)
+	{
+		long long int *nums1 = (long long int *)malloc(sizeof(long long int));
+		long long int *nums2 = (long long int *)malloc(sizeof(long long int));
+		nums1[0] = i - 1;
+		nums2[0] = i - 2;
+		pthread_attr_init(&attr1);
+		pthread_create(&tid1, NULL, gen1, (void *)nums1);
+		pthread_attr_init(&attr2);
+		pthread_create(&tid2, NULL, gen2, (void *)nums2);
+		pthread_join(tid1, NULL);
+		pthread_join(tid2, NULL);
+		fib = fib1 + fib2;
+		printf("%lld ", fib);
+	}
+	printf("\n\n");
+	return 0;
 }
-
-int main(int argc, char const *argv[])
+void *gen1(void *param)
 {
-	fib_num = check_and_return(argc, argv[1]);
-
-	fib_seq = (ll *)malloc(sizeof(ll) * (fib_num));
-
-	if (fib_seq == NULL)
+	long long int *ar = (long long int *)param;
+	long long int n = ar[0];
+	long long int a = 0, b = 1, c, i;
+	if (n == 0)
+		fib1 = a;
+	else
 	{
-		printf("Could not create array. Aborting.\n");
-		exit(EXIT_FAILURE);
+		for (i = 2; i <= n; i++)
+		{
+			c = a + b;
+			a = b;
+			b = c;
+		}
+		fib1 = b;
 	}
-
-	fib_seq[0] = 0;
-	fib_seq[1] = 1;
-
-	pthread_t thread;
-
-	double start = wctime();
-
-	if (pthread_create(&thread, NULL, thread_runner, NULL))
+	pthread_exit(0);
+}
+void *gen2(void *param)
+{
+	long long int *ar = (long long int *)param;
+	long long int n = ar[0];
+	long long int a = 0, b = 1, c, i;
+	if (n == 0)
+		fib2 = a;
+	else
 	{
-		printf("Could not create thread. Aborting.\n");
-		return EXIT_FAILURE;
+		for (i = 2; i <= n; i++)
+		{
+			c = a + b;
+			a = b;
+			b = c;
+		}
+		fib2 = b;
 	}
-	if (pthread_join(thread, NULL))
-	{
-		printf("Could not join thread. Aborting.\n");
-		return EXIT_FAILURE;
-	}
-	double end = wctime();
-
-	print_int_array(fib_seq, fib_num);
-	printf("Run time: %f secs\n", (end - start));
-
-	// Uses [free()] to cleanup allocated memory of integer arrays.
-	free(fib_seq);
-	if (fib_seq != NULL)
-		return EXIT_FAILURE;
-
-	return EXIT_SUCCESS;
+	pthread_exit(0);
 }
