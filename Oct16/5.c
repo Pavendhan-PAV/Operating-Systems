@@ -16,13 +16,13 @@ double wctime()
 // Global variables
 lli n;
 lli digits;
-lli numCheck;
+//lli numCheck;
 lli flag;
 
 void *runner(void *arg)
 {
-	lli temp_num;
-	temp_num = numCheck;
+	lli numCheck = *((int *)arg);
+	lli temp_num = numCheck;
 
 	lli sumPowers = 0;
 	while (numCheck > 0)
@@ -33,7 +33,7 @@ void *runner(void *arg)
 	}
 
 	if (temp_num == sumPowers)
-		flag = 1;
+		printf(" %lld", sumPowers);
 
 	pthread_exit(0);
 }
@@ -43,22 +43,20 @@ int main()
 	printf("Enter upper limit for listing armstrong numbers: ");
 	scanf("%llid", &n);
 	double start = wctime();
+	pthread_t threads[n];
 
 	printf("ARMSTRONG NUMBERS:");
 	for (lli i = 0; i < n; i++)
 	{
 		flag = 0;
-		numCheck = i;
 
 		digits = floor(log10(i)) + 1;
 
-		pthread_t threads;
-		pthread_create(&threads, NULL, runner, (void *)NULL);
-		pthread_join(threads, NULL);
-
-		if (flag == 1)
-			printf(" %llid", i);
+		pthread_create(&threads[i], NULL, runner, &i);
 	}
+
+	for (lli i = 0; i < n; i++)
+		pthread_join(threads[i], NULL);
 
 	double end = wctime();
 	printf("\nRun time: %f secs\n", (end - start));
