@@ -1,0 +1,20 @@
+Abundance;A very large quantity of something;(In solo whist) A bid by which a player undertakes to make nine or more tricks$
+Sense;Perceive by a sense or senses;detect$
+Thing;An object that one need not, cannot, or does not wish to give a specific name to;An inanimate material object as distinct from a living sentient being$
+Vague;Of uncertain, indefinite, or unclear character or meaning;Thinking or communicating in an unfocused or imprecise way$
+Complete;Having all the necessary or appropriate parts;Having all the necessary or appropriate parts$
+Leave;Go away from;Allow or cause to remain$
+Come;Move or travel towards or into a place thought of as near or familiar to the speaker;When a specified time is reached or event happens$
+Disaster;A sudden accident or a natural catastrophe that causes great damage or loss of life;An event or fact that has unfortunate consequences$
+Happy;Feeling or showing pleasure or contentment;Fortunate and convenient$
+Overwhelm;Bury or drown beneath a huge mass of something, especially water;Have a strong emotional effect on$
+Sad;Feeling or showing sorrow or unhappy;Pathetically inadequate or unfashionable$
+Strike;Hit forcibly and deliberately with one's hand or a weapon or other implement;Cur suddenly and have harmful or damaging effects on$
+Evade;Escape or avoid (someone or something), especially by guile or trickery;Avoid giving a direct answer$
+Paralyse;Cause (a person or part of the body) to become partly or wholly incapable of movement;Make (someone) unable to think or act normally, especially through panic or fear$
+Hope;A feeling of expectation and desire for a particular thing to happen;Want something to happen or be the case$
+Despair;The complete loss or absence of hope;Lose or be without hope$
+Comfort;A state of physical ease and freedom from pain or constraint;The easing or alleviation of a person's feelings of grief or distress$
+Ecstatic;Feeling or expressing overwhelming happiness or joyful excitement;Involving an experience of mystic self-transcendence$
+Overwhelm;Bury or drown beneath a huge mass of something, especially water;Have a strong emotional effect on$
+Disaster;A sudden accident or a natural catastrophe that causes great damage or loss of life;An event or fact that has unfortunate consequences$
